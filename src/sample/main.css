@@ -1,0 +1,20 @@
+#brush {
+    -fx-background-image: url("icons/brushes24.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#eraser {
+    -fx-background-image: url("icons/erase15.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#filler {
+    -fx-background-image: url("icons/paint3.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+#rectangle {
+    -fx-background-image: url("icons/screen77.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
