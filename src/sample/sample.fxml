@@ -6,6 +6,10 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<?import sample.BrushControl?>
+<?import sample.EraserControl?>
+<?import sample.FillerControl?>
+<?import sample.RectangleControl?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PaintController">
    <children>
       <BorderPane layoutX="45.0" layoutY="-14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -68,15 +72,15 @@
                     </rowConstraints>
                      <children>
                         <ColorPicker prefHeight="66.0" prefWidth="40.0" GridPane.rowIndex="6" />
-                        <Button id="brush" fx:id="brushTool" mnemonicParsing="false" prefHeight="60.0" prefWidth="40.0" stylesheets="@main.css" />
-                        <Button id="eraser" fx:id="eraseTool" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="79.0" prefWidth="40.0" stylesheets="@main.css" GridPane.columnIndex="1" />
-                        <Button id="filler" fx:id="bucketTool" mnemonicParsing="false" prefHeight="92.0" prefWidth="40.0" stylesheets="@main.css" GridPane.rowIndex="1" />
-                        <Button id="rectangle" fx:id="rectangleTool" mnemonicParsing="false" prefHeight="75.0" prefWidth="40.0" stylesheets="@main.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <BrushControl fx:id="brushTool" GridPane.columnIndex="0" GridPane.rowIndex="0"></BrushControl>
+                        <EraserControl fx:id="eraserTool" GridPane.columnIndex="1" GridPane.rowIndex="0"></EraserControl>
+                        <FillerControl fx:id="fillerTool" GridPane.columnIndex="0" GridPane.rowIndex="1"></FillerControl>
+                        <RectangleControl fx:id="rectangleTool" GridPane.columnIndex="1" GridPane.rowIndex="1"></RectangleControl>
                      </children>
                   </GridPane>
                </left>
                <center>
-                  <Canvas height="331.0" width="520.0" BorderPane.alignment="CENTER" />
+                  <Canvas id="canvas" fx:id="canvas" height="331.0" width="520.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </center>

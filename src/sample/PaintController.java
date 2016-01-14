@@ -3,10 +3,14 @@ package sample;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.input.MouseEvent;
 
 public class PaintController {
 
@@ -15,6 +19,9 @@ public class PaintController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private Canvas canvas;
 
     @FXML
     private Label selectedToolLabel;
@@ -26,36 +33,50 @@ public class PaintController {
     private ScrollBar sizeTool;
 
     @FXML
-    private Button brushTool;
+    private BrushControl brushTool;
+
+    private Command selectedTool;
 
     @FXML
-    private Button eraseTool;
+    private EraserControl eraserTool;
 
     @FXML
-    private Button bucketTool;
+    private FillerControl fillerTool;
 
     @FXML
-    private Button rectangleTool;
+    private RectangleControl rectangleTool;
+
     @FXML
     void initialize() {
+
         pixelSizeLabel.setText(String.format( "%.0f", sizeTool.getValue()) + " px");
         sizeTool.valueProperty().addListener((event) -> {
             pixelSizeLabel.setText(String.format( "%.0f", sizeTool.getValue()) + " px");
         });
         selectedToolLabel.setText("None");
         brushTool.setOnAction((event) -> {
-            selectedToolLabel.setText("Brush");
+            selectedToolLabel.setText(brushTool.getName());
+            selectedTool = brushTool;
         });
-        eraseTool.setOnAction((event) -> {
-            selectedToolLabel.setText("Eraser");
+        eraserTool.setOnAction((event) -> {
+            selectedToolLabel.setText(eraserTool.getName());
+            selectedTool = eraserTool;
         });
-        bucketTool.setOnAction((event) -> {
-            selectedToolLabel.setText("Filler");
+        fillerTool.setOnAction((event) -> {
+            selectedToolLabel.setText(fillerTool.getName());
+            selectedTool = fillerTool;
         });
         rectangleTool.setOnAction((event) -> {
-            selectedToolLabel.setText("Rectangle");
+            selectedToolLabel.setText(rectangleTool.getName());
+            selectedTool = rectangleTool;
         });
 
+//        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//
+//            }
+//        });
 
     }
 
