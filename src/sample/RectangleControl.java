@@ -42,6 +42,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 
 /**
@@ -68,7 +69,7 @@ public class RectangleControl extends AnchorPane implements Command {
     }
 
     @Override
-    public void execute(GraphicsContext gc, MouseEvent e) {
+    public void execute(GraphicsContext gc, MouseEvent e, Color colorPicker, int sizeTool) {
 
     }
 

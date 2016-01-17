@@ -7,12 +7,20 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+
 
 public class PaintController {
+
 
     @FXML
     private ResourceBundle resources;
@@ -47,12 +55,20 @@ public class PaintController {
     private RectangleControl rectangleTool;
 
     @FXML
+    private ColorPicker colorPicker;
+
+
+    @FXML
     void initialize() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        colorPicker.setValue(Color.BLACK);
 
         pixelSizeLabel.setText(String.format( "%.0f", sizeTool.getValue()) + " px");
         sizeTool.valueProperty().addListener((event) -> {
             pixelSizeLabel.setText(String.format( "%.0f", sizeTool.getValue()) + " px");
+
         });
+
         selectedToolLabel.setText("None");
         brushTool.setOnAction((event) -> {
             selectedToolLabel.setText(brushTool.getName());
@@ -71,12 +87,17 @@ public class PaintController {
             selectedTool = rectangleTool;
         });
 
-//        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//
-//            }
-//        });
+        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
+            if(!selectedToolLabel.getText().equals("None")) {
+                selectedTool.execute(gc,event,colorPicker.getValue(),(int)sizeTool.getValue());
+            }
+        });
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            if(!selectedToolLabel.getText().equals("None")) {
+                selectedTool.execute(gc,event,colorPicker.getValue(),(int)sizeTool.getValue());
+
+            }
+        });
 
     }
 

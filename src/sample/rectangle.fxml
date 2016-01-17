@@ -4,9 +4,9 @@
 
 <fx:root type="javafx.scene.layout.AnchorPane" xmlns:fx="http://javafx.com/fxml">
     <children>
-        <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="50.0" prefWidth="40.0">
+        <AnchorPane layoutX="0.0" layoutY="0.0" prefHeight="40.0" prefWidth="40.0">
             <children>
-                <Button id="rectangle" mnemonicParsing="false" prefHeight="50.0" prefWidth="40.0" stylesheets="@main.css" />
+                <Button id="rectangle" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" stylesheets="@main.css" />
                 </children>
         </AnchorPane>
     </children>
