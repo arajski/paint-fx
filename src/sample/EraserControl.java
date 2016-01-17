@@ -43,6 +43,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
 
 
 /**
@@ -69,8 +71,11 @@ public class EraserControl extends AnchorPane implements Command {
     }
 
     @Override
-    public void execute(GraphicsContext gc, MouseEvent e, Color colorPicker, int sizeTool) {
+    public void execute(GraphicsContext gc, MouseEvent e, Color color, int size) {
 
+        if(e.getEventType()==MouseEvent.MOUSE_DRAGGED) {
+            gc.clearRect(e.getX() - 2, e.getY() - 2, size, size);
+        }
     }
 
     public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() { return onAction; }
