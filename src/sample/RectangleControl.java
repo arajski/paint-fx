@@ -33,6 +33,7 @@
 package sample;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
@@ -59,7 +60,7 @@ public class RectangleControl extends AnchorPane implements Command {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rectangle.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        this.controlName = "Rectangle";
+        this.controlName = "tool.rectangle";
         try {
             fxmlLoader.load();
         } catch (IOException exception) {

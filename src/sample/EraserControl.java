@@ -58,7 +58,7 @@ public class EraserControl extends AnchorPane implements Command {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("eraser.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        this.controlName = "Eraser";
+        this.controlName = "tool.eraser";
         try {
             fxmlLoader.load();
         } catch (IOException exception) {

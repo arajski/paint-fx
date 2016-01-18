@@ -1,32 +1,42 @@
 package sample;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Locale;
 import java.util.ResourceBundle;
-
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollBar;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 
 public class PaintController {
-
 
     @FXML
     private ResourceBundle resources;
 
     @FXML
     private URL location;
+
+    @FXML
+    private MenuItem polishLang;
+
+    @FXML
+    private MenuItem englishLang;
+
+    private Command selectedTool;
 
     @FXML
     private Canvas canvas;
@@ -41,9 +51,10 @@ public class PaintController {
     private ScrollBar sizeTool;
 
     @FXML
-    private BrushControl brushTool;
+    private ColorPicker colorPicker;
 
-    private Command selectedTool;
+    @FXML
+    private BrushControl brushTool;
 
     @FXML
     private EraserControl eraserTool;
@@ -55,11 +66,28 @@ public class PaintController {
     private RectangleControl rectangleTool;
 
     @FXML
-    private ColorPicker colorPicker;
-
-
-    @FXML
     void initialize() {
+
+        polishLang.setOnAction(event -> {
+            Main.setLocale(new Locale("pl", "PL"));
+            Main reload = new Main();
+            try {
+                reload.reload();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        englishLang.setOnAction(event -> {
+            Main.setLocale(new Locale("en", "US"));
+            Main reload = new Main();
+            try {
+                reload.reload();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
         colorPicker.setValue(Color.BLACK);
 
@@ -69,26 +97,26 @@ public class PaintController {
 
         });
 
-        selectedToolLabel.setText("None");
+        selectedToolLabel.setText(resources.getString("tool.none"));
         brushTool.setOnAction((event) -> {
-            selectedToolLabel.setText(brushTool.getName());
+            selectedToolLabel.setText(resources.getString(brushTool.getName()));
             selectedTool = brushTool;
         });
         eraserTool.setOnAction((event) -> {
-            selectedToolLabel.setText(eraserTool.getName());
+            selectedToolLabel.setText(resources.getString(eraserTool.getName()));
             selectedTool = eraserTool;
         });
         sphereTool.setOnAction((event) -> {
-            selectedToolLabel.setText(sphereTool.getName());
+            selectedToolLabel.setText(resources.getString(sphereTool.getName()));
             selectedTool = sphereTool;
         });
         rectangleTool.setOnAction((event) -> {
-            selectedToolLabel.setText(rectangleTool.getName());
+            selectedToolLabel.setText(resources.getString(rectangleTool.getName()));
             selectedTool = rectangleTool;
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
-            if(!selectedToolLabel.getText().equals("None")) {
+            if(!selectedToolLabel.getText().equals(resources.getString("tool.none"))) {
                 selectedTool.execute(gc,event,colorPicker.getValue(),(int)sizeTool.getValue());
             }
         });

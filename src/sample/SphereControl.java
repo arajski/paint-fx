@@ -33,6 +33,7 @@
 package sample;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
@@ -40,6 +41,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -54,9 +56,10 @@ public class SphereControl extends AnchorPane implements Command {
 
     public SphereControl() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sphere.fxml"));
+
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        this.controlName = "Circle";
+        this.controlName = "tool.circle";
         try {
             fxmlLoader.load();
         } catch (IOException exception) {

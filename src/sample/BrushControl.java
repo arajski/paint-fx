@@ -33,6 +33,7 @@
 package sample;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
@@ -40,6 +41,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.StrokeLineCap;
@@ -56,9 +58,11 @@ public class BrushControl extends AnchorPane implements Command {
 
     public BrushControl() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("brush.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("bundles.messages");
+
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        this.controlName = "Brush";
+        this.controlName = "tool.brush";
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
