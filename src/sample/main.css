@@ -8,13 +8,13 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
-#filler {
-    -fx-background-image: url("icons/paint3.png");
+#text {
+    -fx-background-image: url("icons/sphere.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 #rectangle {
-    -fx-background-image: url("icons/screen77.png");
+    -fx-background-image: url("icons/basic9.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }

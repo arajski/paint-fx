@@ -8,9 +8,9 @@
 
 <?import sample.BrushControl?>
 <?import sample.EraserControl?>
-<?import sample.FillerControl?>
 <?import sample.RectangleControl?>
 
+<?import sample.SphereControl?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="480.0" minWidth="600" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PaintController">
    <children>
       <BorderPane layoutX="45.0" layoutY="-14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -73,7 +73,7 @@
                      <children>
                         <BrushControl fx:id="brushTool" GridPane.columnIndex="0" GridPane.rowIndex="0"></BrushControl>
                         <EraserControl fx:id="eraserTool" GridPane.columnIndex="1" GridPane.rowIndex="0"></EraserControl>
-                        <FillerControl fx:id="fillerTool" GridPane.columnIndex="0" GridPane.rowIndex="1"></FillerControl>
+                        <SphereControl fx:id="sphereTool" GridPane.columnIndex="0" GridPane.rowIndex="1"></SphereControl>
                         <RectangleControl fx:id="rectangleTool" GridPane.columnIndex="1" GridPane.rowIndex="1"></RectangleControl>
                      </children>
                   </GridPane>

@@ -48,15 +48,15 @@ import javafx.scene.paint.Color;
 /**
  * Sample custom control hosting a text field and a button.
  */
-public class FillerControl extends AnchorPane implements Command {
+public class SphereControl extends AnchorPane implements Command {
 
     private String controlName;
 
-    public FillerControl() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("filler.fxml"));
+    public SphereControl() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sphere.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        this.controlName = "Filler";
+        this.controlName = "Circle";
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
@@ -69,8 +69,15 @@ public class FillerControl extends AnchorPane implements Command {
     }
 
     @Override
-    public void execute(GraphicsContext gc, MouseEvent e, Color colorPicker, int sizeTool) {
+    public void execute(GraphicsContext gc, MouseEvent e, Color color, int size) {
+        gc.setFill(color);
 
+       if(e.getEventType()==MouseEvent.MOUSE_PRESSED) {
+            gc.beginPath();
+            gc.moveTo(e.getX(), e.getY());
+            gc.fillOval(e.getX()-(size/2),e.getY()-(size/2),size,size);
+            gc.stroke();
+        }
     }
 
     public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() { return onAction; }
@@ -79,7 +86,7 @@ public class FillerControl extends AnchorPane implements Command {
     private ObjectProperty<EventHandler<ActionEvent>> onAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
         @Override
         public Object getBean() {
-            return FillerControl .this;
+            return SphereControl .this;
         }
 
         @Override

@@ -43,6 +43,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
 
 
 /**
@@ -56,7 +59,7 @@ public class RectangleControl extends AnchorPane implements Command {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("rectangle.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);
-        this.controlName = "Brush";
+        this.controlName = "Rectangle";
         try {
             fxmlLoader.load();
         } catch (IOException exception) {
@@ -69,8 +72,15 @@ public class RectangleControl extends AnchorPane implements Command {
     }
 
     @Override
-    public void execute(GraphicsContext gc, MouseEvent e, Color colorPicker, int sizeTool) {
+    public void execute(GraphicsContext gc, MouseEvent e, Color color, int size) {
 
+        gc.setFill(color);
+        if(e.getEventType()==MouseEvent.MOUSE_PRESSED) {
+            gc.beginPath();
+            gc.moveTo(e.getX(), e.getY());
+            gc.fillRect(e.getX()-(size/2),e.getY()-(size/2),size,size);
+            gc.stroke();
+        }
     }
 
     public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() { return onAction; }

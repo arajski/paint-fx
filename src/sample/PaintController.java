@@ -49,7 +49,7 @@ public class PaintController {
     private EraserControl eraserTool;
 
     @FXML
-    private FillerControl fillerTool;
+    private SphereControl sphereTool;
 
     @FXML
     private RectangleControl rectangleTool;
@@ -78,9 +78,9 @@ public class PaintController {
             selectedToolLabel.setText(eraserTool.getName());
             selectedTool = eraserTool;
         });
-        fillerTool.setOnAction((event) -> {
-            selectedToolLabel.setText(fillerTool.getName());
-            selectedTool = fillerTool;
+        sphereTool.setOnAction((event) -> {
+            selectedToolLabel.setText(sphereTool.getName());
+            selectedTool = sphereTool;
         });
         rectangleTool.setOnAction((event) -> {
             selectedToolLabel.setText(rectangleTool.getName());
