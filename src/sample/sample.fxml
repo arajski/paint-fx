@@ -6,11 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<?import sample.BrushControl?>
-<?import sample.EraserControl?>
-<?import sample.RectangleControl?>
-<?import sample.SphereControl?>
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="480.0" minWidth="600" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PaintController">
    <children>
       <BorderPane layoutX="45.0" layoutY="-14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -55,7 +50,7 @@
                   </ToolBar>
                </top>
                <left>
-                  <GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="80.0" scaleShape="false" BorderPane.alignment="CENTER">
+                  <GridPane fx:id = "gridPane" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="80.0" scaleShape="false" BorderPane.alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -70,10 +65,10 @@
                         <RowConstraints minHeight="40.0" prefHeight="40.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <BrushControl fx:id="brushTool" GridPane.columnIndex="0" GridPane.rowIndex="0"></BrushControl>
+                        <!--<BrushControl fx:id="brushTool" GridPane.columnIndex="0" GridPane.rowIndex="0"></BrushControl>
                         <EraserControl fx:id="eraserTool" GridPane.columnIndex="1" GridPane.rowIndex="0"></EraserControl>
                         <SphereControl fx:id="sphereTool" GridPane.columnIndex="0" GridPane.rowIndex="1"></SphereControl>
-                        <RectangleControl fx:id="rectangleTool" GridPane.columnIndex="1" GridPane.rowIndex="1"></RectangleControl>
+                        <RectangleControl fx:id="rectangleTool" GridPane.columnIndex="1" GridPane.rowIndex="1"></RectangleControl>-->
                      </children>
                   </GridPane>
                </left>

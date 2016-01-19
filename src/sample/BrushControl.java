@@ -38,16 +38,15 @@ import java.util.ResourceBundle;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ObjectPropertyBase;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.paint.Color;
-
 
 /**
  * Sample custom control hosting a text field and a button.
@@ -74,6 +73,13 @@ public class BrushControl extends AnchorPane implements Command {
         return controlName;
     }
 
+
+    @Override
+    public void setAction(EventHandler<ActionEvent> value) {
+        onActionProperty().set(value);
+    }
+
+
     @Override
     public void execute(GraphicsContext gc, MouseEvent e, Color color, int size) {
 
@@ -93,7 +99,6 @@ public class BrushControl extends AnchorPane implements Command {
     }
 
     public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() { return onAction; }
-    public final void setOnAction(EventHandler<ActionEvent> value) { onActionProperty().set(value); }
     private ObjectProperty<EventHandler<ActionEvent>> onAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
         @Override
         public Object getBean() {

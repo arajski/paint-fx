@@ -3,11 +3,11 @@ package sample;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
@@ -15,11 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 
 public class PaintController {
@@ -29,6 +26,9 @@ public class PaintController {
 
     @FXML
     private URL location;
+
+    @FXML
+    private GridPane gridPane;
 
     @FXML
     private MenuItem polishLang;
@@ -53,21 +53,39 @@ public class PaintController {
     @FXML
     private ColorPicker colorPicker;
 
-    @FXML
-    private BrushControl brushTool;
+    private void initPlugins(){
+        System.out.println("Initializing plugins...");
+        final BrushControl brushTool = new BrushControl();
+        final EraserControl eraserTool = new EraserControl();
+        final SphereControl sphereTool = new SphereControl();
+        final RectangleControl rectangleTool = new RectangleControl();
 
-    @FXML
-    private EraserControl eraserTool;
+        int col = 0;
+        int row = 0;
+        ArrayList<Command> nodes = new ArrayList<>();
+        nodes.add(brushTool);
+        nodes.add(eraserTool);
+        nodes.add(sphereTool);
+        nodes.add(rectangleTool);
 
-    @FXML
-    private SphereControl sphereTool;
+        for(Command node : nodes) {
+            gridPane.add((Node) node,col,row);
+            col = (++col)%2;
+            if(col == 0)
+                row = (++row)%7;
+            Class nodeClass = node.getClass();
+            nodeClass.cast(node);
 
-    @FXML
-    private RectangleControl rectangleTool;
-
+            node.setAction((event) -> {
+                selectedToolLabel.setText(resources.getString(node.getName()));
+                selectedTool = node;
+            });
+        }
+    }
     @FXML
     void initialize() {
 
+        initPlugins();
         polishLang.setOnAction(event -> {
             Main.setLocale(new Locale("pl", "PL"));
             Main reload = new Main();
@@ -98,22 +116,23 @@ public class PaintController {
         });
 
         selectedToolLabel.setText(resources.getString("tool.none"));
-        brushTool.setOnAction((event) -> {
-            selectedToolLabel.setText(resources.getString(brushTool.getName()));
-            selectedTool = brushTool;
-        });
-        eraserTool.setOnAction((event) -> {
-            selectedToolLabel.setText(resources.getString(eraserTool.getName()));
-            selectedTool = eraserTool;
-        });
-        sphereTool.setOnAction((event) -> {
-            selectedToolLabel.setText(resources.getString(sphereTool.getName()));
-            selectedTool = sphereTool;
-        });
-        rectangleTool.setOnAction((event) -> {
-            selectedToolLabel.setText(resources.getString(rectangleTool.getName()));
-            selectedTool = rectangleTool;
-        });
+
+//        brushTool.setOnAction((event) -> {
+//            selectedToolLabel.setText(resources.getString(brushTool.getName()));
+//            selectedTool = brushTool;
+//        });
+//        eraserTool.setOnAction((event) -> {
+//            selectedToolLabel.setText(resources.getString(eraserTool.getName()));
+//            selectedTool = eraserTool;
+//        });
+//        sphereTool.setOnAction((event) -> {
+//            selectedToolLabel.setText(resources.getString(sphereTool.getName()));
+//            selectedTool = sphereTool;
+//        });
+//        rectangleTool.setOnAction((event) -> {
+//            selectedToolLabel.setText(resources.getString(rectangleTool.getName()));
+//            selectedTool = rectangleTool;
+//        });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
             if(!selectedToolLabel.getText().equals(resources.getString("tool.none"))) {

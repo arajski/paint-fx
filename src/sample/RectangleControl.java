@@ -73,6 +73,11 @@ public class RectangleControl extends AnchorPane implements Command {
     }
 
     @Override
+    public void setAction(EventHandler<ActionEvent> value) {
+        onActionProperty().set(value);
+    }
+
+    @Override
     public void execute(GraphicsContext gc, MouseEvent e, Color color, int size) {
 
         gc.setFill(color);
@@ -86,7 +91,6 @@ public class RectangleControl extends AnchorPane implements Command {
 
     public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() { return onAction; }
     public final void setOnAction(EventHandler<ActionEvent> value) { onActionProperty().set(value); }
-    //public final EventHandler<ActionEvent> getOnAction() { return onActionProperty().get(); }
     private ObjectProperty<EventHandler<ActionEvent>> onAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
         @Override
         public Object getBean() {
