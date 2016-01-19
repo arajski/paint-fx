@@ -1,11 +1,10 @@
-
 package sample;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ObjectPropertyBase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.StrokeLineCap;
@@ -17,9 +16,13 @@ public class BrushControl extends AnchorPane implements Command {
 
     private String controlName;
 
+    @FXML
+    private Button button;
+
     public BrushControl() {
         this.controlName = "tool.brush";
-        UILoader uiLoader = new UILoader(controlName,"brush.fxml",this);
+
+        UILoader uiLoader = new UILoader("brush.fxml",this);
         uiLoader.load();
     }
 
@@ -27,12 +30,10 @@ public class BrushControl extends AnchorPane implements Command {
         return controlName;
     }
 
-
     @Override
     public void setAction(EventHandler<ActionEvent> value) {
-        onActionProperty().set(value);
+       button.setOnAction(value);
     }
-
 
     @Override
     public void execute(GraphicsContext gc, MouseEvent e, Color color, int size) {
@@ -51,21 +52,4 @@ public class BrushControl extends AnchorPane implements Command {
             gc.stroke();
         }
     }
-
-    public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() { return onAction; }
-    private ObjectProperty<EventHandler<ActionEvent>> onAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
-        @Override
-        public Object getBean() {
-            return BrushControl .this;
-        }
-
-        @Override
-        public String getName() {
-            return "onAction";
-        }
-
-        @Override protected void invalidated() {
-            setEventHandler(ActionEvent.ACTION, get());
-        }
-    };
 }

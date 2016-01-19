@@ -1,29 +1,24 @@
-
 package sample;
 
-import java.io.IOException;
-import java.util.ResourceBundle;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ObjectPropertyBase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
-import javafx.scene.shape.StrokeLineJoin;
 
 public class RectangleControl extends AnchorPane implements Command {
 
     private String controlName;
 
+    @FXML
+    private Button button;
+
     public RectangleControl() {
         this.controlName = "tool.rectangle";
-        UILoader uiLoader = new UILoader(controlName,"rectangle.fxml",this);
+        UILoader uiLoader = new UILoader("rectangle.fxml",this);
         uiLoader.load();
     }
 
@@ -33,7 +28,7 @@ public class RectangleControl extends AnchorPane implements Command {
 
     @Override
     public void setAction(EventHandler<ActionEvent> value) {
-        onActionProperty().set(value);
+        button.setOnAction(value);
     }
 
     @Override
@@ -47,22 +42,4 @@ public class RectangleControl extends AnchorPane implements Command {
             gc.stroke();
         }
     }
-
-    public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() { return onAction; }
-    public final void setOnAction(EventHandler<ActionEvent> value) { onActionProperty().set(value); }
-    private ObjectProperty<EventHandler<ActionEvent>> onAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
-        @Override
-        public Object getBean() {
-            return RectangleControl.this;
-        }
-
-        @Override
-        public String getName() {
-            return "onAction";
-        }
-
-        @Override protected void invalidated() {
-            setEventHandler(ActionEvent.ACTION, get());
-        }
-    };
 }

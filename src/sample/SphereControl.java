@@ -1,27 +1,24 @@
 package sample;
 
-import java.io.IOException;
-import java.util.ResourceBundle;
-
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ObjectPropertyBase;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-
 
 public class SphereControl extends AnchorPane implements Command {
 
     private String controlName;
 
+    @FXML
+    private Button button;
+
     public SphereControl() {
         this.controlName = "tool.circle";
-        UILoader uiLoader = new UILoader(controlName,"sphere.fxml",this);
+        UILoader uiLoader = new UILoader("sphere.fxml",this);
         uiLoader.load();
     }
 
@@ -31,7 +28,7 @@ public class SphereControl extends AnchorPane implements Command {
 
     @Override
     public void setAction(EventHandler<ActionEvent> value) {
-        onActionProperty().set(value);
+        button.setOnAction(value);
     }
 
     @Override
@@ -45,21 +42,4 @@ public class SphereControl extends AnchorPane implements Command {
             gc.stroke();
         }
     }
-
-    public final ObjectProperty<EventHandler<ActionEvent>> onActionProperty() { return onAction; }
-    private ObjectProperty<EventHandler<ActionEvent>> onAction = new ObjectPropertyBase<EventHandler<ActionEvent>>() {
-        @Override
-        public Object getBean() {
-            return SphereControl .this;
-        }
-
-        @Override
-        public String getName() {
-            return "onAction";
-        }
-
-        @Override protected void invalidated() {
-            setEventHandler(ActionEvent.ACTION, get());
-        }
-    };
 }
