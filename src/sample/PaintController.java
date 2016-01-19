@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -55,13 +54,14 @@ public class PaintController {
 
     private void initPlugins(){
         System.out.println("Initializing plugins...");
-        final BrushControl brushTool = new BrushControl();
-        final EraserControl eraserTool = new EraserControl();
-        final SphereControl sphereTool = new SphereControl();
-        final RectangleControl rectangleTool = new RectangleControl();
+        BrushControl brushTool = new BrushControl();
+        EraserControl eraserTool = new EraserControl();
+        SphereControl sphereTool = new SphereControl();
+        RectangleControl rectangleTool = new RectangleControl();
 
         int col = 0;
         int row = 0;
+
         ArrayList<Command> nodes = new ArrayList<>();
         nodes.add(brushTool);
         nodes.add(eraserTool);
@@ -82,69 +82,44 @@ public class PaintController {
             });
         }
     }
+
+    private void reloadUI(Locale locale){
+        Main.setLocale(locale);
+        Main reload = new Main();
+        try {
+            reload.reload();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void executeCommand(GraphicsContext gc, MouseEvent event){
+        if(!selectedToolLabel.getText().equals(resources.getString("tool.none"))) {
+            selectedTool.execute(gc,event,colorPicker.getValue(),(int)sizeTool.getValue());
+        }
+    }
+
     @FXML
     void initialize() {
 
         initPlugins();
-        polishLang.setOnAction(event -> {
-            Main.setLocale(new Locale("pl", "PL"));
-            Main reload = new Main();
-            try {
-                reload.reload();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        englishLang.setOnAction(event -> {
-            Main.setLocale(new Locale("en", "US"));
-            Main reload = new Main();
-            try {
-                reload.reload();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
 
+        polishLang.setOnAction(event -> reloadUI(new Locale("pl", "PL")));
+        englishLang.setOnAction(event -> reloadUI(new Locale("en", "US")));
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         colorPicker.setValue(Color.BLACK);
 
         pixelSizeLabel.setText(String.format( "%.0f", sizeTool.getValue()) + " px");
+
         sizeTool.valueProperty().addListener((event) -> {
             pixelSizeLabel.setText(String.format( "%.0f", sizeTool.getValue()) + " px");
-
         });
 
         selectedToolLabel.setText(resources.getString("tool.none"));
-
-//        brushTool.setOnAction((event) -> {
-//            selectedToolLabel.setText(resources.getString(brushTool.getName()));
-//            selectedTool = brushTool;
-//        });
-//        eraserTool.setOnAction((event) -> {
-//            selectedToolLabel.setText(resources.getString(eraserTool.getName()));
-//            selectedTool = eraserTool;
-//        });
-//        sphereTool.setOnAction((event) -> {
-//            selectedToolLabel.setText(resources.getString(sphereTool.getName()));
-//            selectedTool = sphereTool;
-//        });
-//        rectangleTool.setOnAction((event) -> {
-//            selectedToolLabel.setText(resources.getString(rectangleTool.getName()));
-//            selectedTool = rectangleTool;
-//        });
-
-        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> {
-            if(!selectedToolLabel.getText().equals(resources.getString("tool.none"))) {
-                selectedTool.execute(gc,event,colorPicker.getValue(),(int)sizeTool.getValue());
-            }
-        });
-        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
-            if(!selectedToolLabel.getText().equals("None")) {
-                selectedTool.execute(gc,event,colorPicker.getValue(),(int)sizeTool.getValue());
-
-            }
-        });
+        
+        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, event -> executeCommand(gc,event));
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> executeCommand(gc,event));
 
     }
 
