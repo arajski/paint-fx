@@ -1,20 +1,23 @@
 package sample;
 
 import javafx.fxml.FXMLLoader;
+import plugin.brush.BrushControl;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class UILoader {
 
-    private String resource;
+    private URL resource;
     private Object obj;
-    public UILoader(String resource, Object obj) {
+
+    public UILoader(URL resource, Object obj) {
         this.resource = resource;
         this.obj=obj;
     }
 
     public void load() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(resource));
+        FXMLLoader fxmlLoader = new FXMLLoader(resource);
         fxmlLoader.setRoot(obj);
         fxmlLoader.setController(obj);
         try {

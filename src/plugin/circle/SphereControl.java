@@ -1,4 +1,4 @@
-package sample;
+package plugin.circle;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import sample.Command;
+import sample.UILoader;
 
 public class SphereControl extends AnchorPane implements Command {
 
@@ -18,7 +20,7 @@ public class SphereControl extends AnchorPane implements Command {
 
     public SphereControl() {
         this.controlName = "tool.circle";
-        UILoader uiLoader = new UILoader("sphere.fxml",this);
+        UILoader uiLoader = new UILoader(getClass().getResource("sphere.fxml"),this);
         uiLoader.load();
     }
 

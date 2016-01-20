@@ -1,4 +1,4 @@
-package sample;
+package plugin.eraser;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,17 +8,19 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import sample.Command;
+import sample.UILoader;
 
-public class RectangleControl extends AnchorPane implements Command {
+public class EraserControl extends AnchorPane implements Command {
 
     private String controlName;
 
     @FXML
     private Button button;
 
-    public RectangleControl() {
-        this.controlName = "tool.rectangle";
-        UILoader uiLoader = new UILoader("rectangle.fxml",this);
+    public EraserControl() {
+        this.controlName = "tool.eraser";
+        UILoader uiLoader = new UILoader(getClass().getResource("eraser.fxml"),this);
         uiLoader.load();
     }
 
@@ -28,18 +30,14 @@ public class RectangleControl extends AnchorPane implements Command {
 
     @Override
     public void setAction(EventHandler<ActionEvent> value) {
-        button.setOnAction(value);
+       button.setOnAction(value);
     }
 
     @Override
     public void execute(GraphicsContext gc, MouseEvent e, Color color, int size) {
 
-        gc.setFill(color);
-        if(e.getEventType()==MouseEvent.MOUSE_PRESSED) {
-            gc.beginPath();
-            gc.moveTo(e.getX(), e.getY());
-            gc.fillRect(e.getX()-(size/2),e.getY()-(size/2),size,size);
-            gc.stroke();
+        if(e.getEventType()==MouseEvent.MOUSE_DRAGGED) {
+            gc.clearRect(e.getX() - 2, e.getY() - 2, size, size);
         }
     }
 }
