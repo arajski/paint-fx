@@ -1,1 +1,16 @@
+#bg {
+    -fx-background-color: #2C517A;
 
+}
+#stackpane {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 7, 0, 5, 5);
+
+}
+#gridpane {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 7, 0, 5, 5);
+}
+#toolbar {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 7, 0, 0, 3);
+}

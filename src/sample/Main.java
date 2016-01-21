@@ -23,7 +23,7 @@ public class Main extends Application {
 
         Parent root = loader.load();
         primaryStage.setTitle("- PaintFX - Artur Rajski -");
-        primaryStage.setScene(new Scene(root, 600, 345));
+        primaryStage.setScene(new Scene(root, 900, 550));
         primaryStage.show();
     }
 

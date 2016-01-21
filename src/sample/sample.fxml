@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="480.0" minWidth="600" prefHeight="480.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PaintController">
+<AnchorPane id="bg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="680.0" minWidth="800" prefHeight="680.0" prefWidth="800.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.PaintController">
    <children>
-      <BorderPane layoutX="45.0" layoutY="-14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="45.0" layoutY="-14.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <MenuBar stylesheets="@main.css" BorderPane.alignment="CENTER">
               <menus>
                 <Menu mnemonicParsing="false" text="%menu.file">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="%menu.file.new" />
+                        <MenuItem fx:id="newFile" mnemonicParsing="false" text="%menu.file.new" />
                         <SeparatorMenuItem mnemonicParsing="false" />
-                    <MenuItem mnemonicParsing="false" text="%menu.file.close" />
+                    <MenuItem fx:id="closeApp" mnemonicParsing="false" text="%menu.file.close" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu.language">
@@ -25,16 +26,16 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="%menu.help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="%menu.help.about" />
+                    <MenuItem fx:id="aboutApp" mnemonicParsing="false" text="%menu.help.about" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
          </top>
          <center>
-            <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <BorderPane prefHeight="400.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                <top>
-                  <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <ToolBar id="toolbar" prefHeight="40.0" prefWidth="400.0" BorderPane.alignment="CENTER" stylesheets="@main.css">
                      <items>
                         <Label text="%toolbar.selected" />
                         <Label fx:id="selectedToolLabel" text="Label" />
@@ -48,7 +49,7 @@
                   </ToolBar>
                </top>
                <left>
-                  <GridPane fx:id = "gridPane" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="80.0" scaleShape="false" BorderPane.alignment="CENTER">
+                  <GridPane id="gridpane" fx:id="gridPane" gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="280.0" prefWidth="80.0" scaleShape="false" stylesheets="@main.css" BorderPane.alignment="CENTER">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -67,8 +68,14 @@
                   </GridPane>
                </left>
                <center>
-                  <Canvas id="canvas" fx:id="canvas" height="280.0" width="520.0" BorderPane.alignment="CENTER" />
+                   <StackPane id="stackpane" prefHeight="350.0" prefWidth="620.0" maxHeight="350.0" maxWidth="650.0" stylesheets="@main.css" BorderPane.alignment="CENTER">
+                       <children>
+                           <Canvas fx:id="canvas" height="350.0" width="650.0" />
+                       </children>
+                   </StackPane>
                </center>
+               <right>
+               </right>
             </BorderPane>
          </center>
       </BorderPane>
