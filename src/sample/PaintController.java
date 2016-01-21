@@ -73,8 +73,10 @@ public class PaintController {
 
         System.out.println("Initializing plugins...\n");
         PluginManager pluginManager = new PluginManager();
+        ArrayList<Command> nodes = new ArrayList<>();
 
-        ArrayList<Command> nodes = pluginManager.loadPlugins();
+        nodes = pluginManager.loadPlugins();
+
         int col = 0;
         int row = 0;
 

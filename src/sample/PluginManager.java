@@ -4,8 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
-import java.net.URL;
-import java.net.URLClassLoader;
+import java.net.*;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,7 +22,12 @@ public class PluginManager {
 
     private JSONObject loadJSON(String tool) {
 
-        URL jsonUrl = getClass().getResource("../plugin/"+tool+"/manifest.json");
+        URL jsonUrl = null;
+        try {
+            jsonUrl = new URL("file://"+System.getProperty("user.dir") + "/Plugins/" +tool +"/manifest.json");
+        } catch (MalformedURLException e) {
+            System.out.print("Cannot load " + tool + "'s manifest.json!");
+        }
         JSONObject json = null;
         ArrayList<Command> nodes = new ArrayList<>();
 
@@ -45,12 +49,12 @@ public class PluginManager {
     private Command loadTool(String tool) {
 
         Command command = null;
-
         JSONObject manifest = loadJSON(tool);
 
         String className = null;
         String packageName = null;
         String toolName = null;
+        URL classUrl = null;
 
         try {
             className = (String) manifest.get("class");
@@ -61,11 +65,16 @@ public class PluginManager {
         }
 
         if(className != null && packageName != null){
-            URL classUrl = getClass().getResource("../plugin/"+tool+"/" + className + ".class");
+            try {
+                classUrl = new URL("file://"+System.getProperty("user.dir") + "/Plugins/" +tool +"/"+ className + ".class");
+            } catch (MalformedURLException e) {
+                System.out.print("Unable to load "+tool);
+            }
             URL[] urls = new URL[]{classUrl};
             ClassLoader cl = new URLClassLoader(urls);
 
             try {
+                //System.out.print(classUrl + " " + packageName + "." + className +"\n");
                 Class cls = cl.loadClass(packageName+"."+className);
                 command = (Command) cls.newInstance();
                 System.out.print("Initialized " + toolName + "!\n");
@@ -83,18 +92,30 @@ public class PluginManager {
     public ArrayList loadPlugins() {
 
         ArrayList<Command> commands = new ArrayList<>();
-        URL directoryUrl = getClass().getResource("../plugin/");
-        File file = new File(directoryUrl.getPath());
-        String[] names = file.list();
+        String directoryPath = System.getProperty("user.dir") + "/";
+        URL directoryUrl = null;
+        try {
+            directoryUrl = new URL("file://"+directoryPath);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        System.out.print("\nOpening " + directoryPath + "Plugins/" + " for plugins\n");
 
-        for(String name : names)
-        {
-            if (new File(directoryUrl.getPath()).isDirectory() && !Objects.equals(name, ".DS_Store"))
+        try {
+            File file = new File(directoryUrl.getPath() + "Plugins/");
+            String[] names = file.list();
+
+            for(String name : names)
             {
-                Command newTool = loadTool(name);
-                if(newTool != null)
-                    commands.add(newTool);
+                if (new File(directoryUrl.getPath()).isDirectory() && !Objects.equals(name, ".DS_Store"))
+                {
+                    Command newTool = loadTool(name);
+                    if(newTool != null)
+                        commands.add(newTool);
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.print("Plugins directory not found!\nCannot initialize plugins");
         }
 
         return commands;

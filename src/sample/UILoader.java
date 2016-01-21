@@ -1,7 +1,7 @@
 package sample;
 
 import javafx.fxml.FXMLLoader;
-import plugin.brush.BrushControl;
+
 
 import java.io.IOException;
 import java.net.URL;
