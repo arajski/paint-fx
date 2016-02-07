@@ -24,7 +24,7 @@ public class PluginManager {
 
         URL jsonUrl = null;
         try {
-            jsonUrl = new URL("file://"+System.getProperty("user.dir") + "/Plugins/" +tool +"/manifest.json");
+            jsonUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator+"Plugins"+File.separator +tool +File.separator+"manifest.json");
         } catch (MalformedURLException e) {
             System.out.print("Cannot load " + tool + "'s manifest.json!");
         }
@@ -66,7 +66,8 @@ public class PluginManager {
 
         if(className != null && packageName != null){
             try {
-                classUrl = new URL("file://"+System.getProperty("user.dir") + "/Plugins/" +tool +"/"+ className + ".class");
+                classUrl = new URL("file:///" + System.getProperty("user.dir") + File.separator + "Plugins"+File.separator +tool +File.separator+ className + ".class");
+                System.out.print(classUrl);
             } catch (MalformedURLException e) {
                 System.out.print("Unable to load "+tool);
             }
@@ -95,14 +96,14 @@ public class PluginManager {
         String directoryPath = System.getProperty("user.dir") + "/";
         URL directoryUrl = null;
         try {
-            directoryUrl = new URL("file://"+directoryPath);
+            directoryUrl = new URL("file:///"+directoryPath);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        System.out.print("\nOpening " + directoryPath + "Plugins/" + " for plugins\n");
+        System.out.print("\nOpening " + directoryPath + "Plugins"+File.separator + " for plugins\n");
 
         try {
-            File file = new File(directoryUrl.getPath() + "Plugins/");
+            File file = new File(directoryUrl.getPath() + "Plugins" + File.separator);
             String[] names = file.list();
 
             for(String name : names)
